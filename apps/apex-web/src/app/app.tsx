@@ -1,11 +1,9 @@
-import NxWelcome from './nx-welcome';
+import { Route, Routes, Link } from "react-router-dom";
+
+import { AppFrame } from "@sameera/quantum";
 
 export function App() {
-  return (
-    <div>
-      <NxWelcome title="apex-web" />
-    </div>
-  );
+    return <AppFrame></AppFrame>;
 }
 
 export default App;
