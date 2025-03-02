@@ -18,7 +18,7 @@ export const AppFrame: React.FC = () => {
 
     return (
         <ThemeProvider defaultTheme="dark">
-            <div className="flex h-screen">
+            <div className="flex h-screen w-screen">
                 {/* Desktop Layout */}
                 <div className="hidden lg:flex h-full w-full">
                     {/* Workspace List */}

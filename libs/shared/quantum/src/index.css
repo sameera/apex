@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+#root {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
 @layer base {
     :root {
         --background: 240 10% 3.9%;
@@ -46,18 +52,6 @@
         --border: 240 5.9% 90%;
         --input: 240 5.9% 90%;
         --ring: 142 76% 36%;
-    }
-}
-
-@layer components {
-    .border-border {
-        border-color: hsl(var(--border));
-    }
-    .bg-background {
-        background-color: hsl(var(--background));
-    }
-    .text-foreground {
-        color: hsl(var(--foreground));
     }
 }
 

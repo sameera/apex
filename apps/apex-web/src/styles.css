@@ -1,4 +1,4 @@
-@import "../../../libs/shared/quantum/src/index.css";
+@import "../../../dist/libs/shared/quantum/styles.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
