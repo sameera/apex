@@ -15,7 +15,8 @@
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
         "paths": {
-            "@sameera/quantum": ["libs/shared/quantum/src/index.ts"]
+            "@sameera/quantum": ["libs/shared/quantum/src/index.ts"],
+            "@sameera/quantum/themes": ["dist/libs/shared/quantum/style.css"]
         }
     },
     "exclude": ["node_modules", "tmp"]

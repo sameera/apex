@@ -10,8 +10,6 @@ import { cn } from "./utils";
 import { MobileHeader } from "./components/mobile-header";
 import { MobileSidebar } from "./components/mobile-sidebar";
 
-import "./app-frame.css";
-
 export const AppFrame: React.FC = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
