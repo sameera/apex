@@ -16,7 +16,7 @@ type WorkspaceExploreProps = React.HTMLAttributes<HTMLDivElement>;
 
 export function WorkspaceExplore({ className }: WorkspaceExploreProps) {
     const [activeWorkspace] = useAtom(activeWorkspace$);
-    const [isCollapsed, setIsCollpased] = useAtom(isExplorerCollapsed$);
+    const [isCollapsed] = useAtom(isExplorerCollapsed$);
 
     return (
         <div className={cn("flex flex-col h-full", className)}>
