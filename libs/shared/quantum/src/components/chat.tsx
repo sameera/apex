@@ -1,7 +1,7 @@
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { ScrollArea } from "./ui/scroll-area";
-import { Send } from "lucide-react";
+import { LuSend } from "react-icons/lu";
 
 export function Chat() {
     return (
@@ -21,7 +21,7 @@ export function Chat() {
                 >
                     <Input placeholder="Type a message..." className="flex-1" />
                     <Button type="submit" size="icon">
-                        <Send className="h-4 w-4" />
+                        <LuSend className="h-4 w-4" />
                     </Button>
                 </form>
             </div>

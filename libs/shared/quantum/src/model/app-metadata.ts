@@ -1,7 +1,15 @@
 import { atom } from "jotai";
+import { IconType } from "react-icons";
+import { LiaAtomSolid } from "react-icons/lia";
+
+export const DEFAULT_APP_ICON = LiaAtomSolid;
 
 export interface AppMetadata {
     name: string;
+    icon: IconType;
 }
 
-export const appMeta$ = atom<AppMetadata>({ name: "Aetherium App" });
+export const appMeta$ = atom<AppMetadata>({
+    name: "Aetherium App",
+    icon: DEFAULT_APP_ICON,
+});

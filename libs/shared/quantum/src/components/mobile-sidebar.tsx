@@ -1,4 +1,4 @@
-import { Sheet, SheetContent } from "./ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from "./ui/sheet";
 import { WorkspaceExplore } from "./workspace-explore";
 
 interface MobileSidebarProps {
@@ -10,6 +10,10 @@ export function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
     return (
         <Sheet open={isOpen} onOpenChange={onClose}>
             <SheetContent side="left" className="w-[280px] p-0">
+                <SheetTitle className="sr-only">Workspace Explorer</SheetTitle>
+                <SheetDescription className="sr-only">
+                    Navigate through your workspace items and folders
+                </SheetDescription>
                 <WorkspaceExplore className="h-full" isCollapsed={false} />
             </SheetContent>
         </Sheet>

@@ -1,3 +1,4 @@
+import { useAtom } from "jotai";
 import { cn } from "../utils";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
@@ -8,125 +9,91 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "./ui/tooltip";
+import { LuPlus } from "react-icons/lu";
 import {
-    Boxes,
-    Plus,
-    Gamepad2,
-    Code2,
-    Coffee,
-    Rocket,
-    Zap,
-} from "lucide-react";
+    activeWorkspace$,
+    systemWorkspace$,
+    getWorkspaces$,
+    Workspace,
+} from "../model";
 
-interface WorkspacesListProps extends React.HTMLAttributes<HTMLDivElement> {}
+type WorkspacesListProps = React.HTMLAttributes<HTMLDivElement>;
+
+const ACTIVE_WORKSPACE_BUTTON =
+    "w-full bg-primary/10 hover:bg-primary/20 group";
+const INACTIVE_WORKSPACE_BUTTON = "w-full hover:bg-primary/10 group";
+const ACTIVE_WORKSPACE_ICON = "h-4 w-4 text-primary";
+const INACTIVE_WORKSPACE_ICON = "h-4 w-4 group-hover:text-primary";
+
+function WorkspaceButton({
+    workspace,
+    activeWorkspace,
+}: {
+    workspace: Workspace;
+    activeWorkspace?: Workspace;
+}) {
+    const isActive = workspace.id === activeWorkspace?.id;
+    const buttonClassNames = isActive
+        ? ACTIVE_WORKSPACE_BUTTON
+        : INACTIVE_WORKSPACE_BUTTON;
+    const iconClassNames = isActive
+        ? ACTIVE_WORKSPACE_ICON
+        : INACTIVE_WORKSPACE_ICON;
+
+    return (
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className={buttonClassNames}
+                >
+                    {workspace.icon({ className: iconClassNames })}
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent side="right">
+                <p>{workspace.name}</p>
+            </TooltipContent>
+        </Tooltip>
+    );
+}
 
 export function WorkspacesList({ className }: WorkspacesListProps) {
+    const [workspaces] = useAtom(getWorkspaces$);
+    const [activeWorkspace] = useAtom(activeWorkspace$);
+    const [appOverviewWorkspace] = useAtom(systemWorkspace$);
+
     return (
         <div className={cn("pb-12", className)}>
-            <div className="space-y-4 py-4">
-                <div className="px-3 py-2">
+            <div className="space-y-1 py-4">
+                {/* App Overview Button */}
+                <div className="px-1 py-2">
                     <div className="space-y-1">
                         <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <Button
-                                        variant="secondary"
-                                        size="icon"
-                                        className="w-full"
-                                    >
-                                        <Boxes className="h-4 w-4" />
-                                    </Button>
-                                </TooltipTrigger>
-                                <TooltipContent side="right">
-                                    <p>Overview</p>
-                                </TooltipContent>
-                            </Tooltip>
+                            <WorkspaceButton
+                                workspace={appOverviewWorkspace}
+                                activeWorkspace={activeWorkspace}
+                            />
                         </TooltipProvider>
                     </div>
                 </div>
-                <div className="px-3 py-2">
+                {/* Workspace Buttons */}
+                <div className="px-1 py-2">
                     <ScrollArea className="h-[300px] px-1">
                         <div className="space-y-1">
                             <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="w-full bg-primary/10 hover:bg-primary/20"
-                                        >
-                                            <Code2 className="h-4 w-4 text-primary" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent side="right">
-                                        <p>Engineering</p>
-                                    </TooltipContent>
-                                </Tooltip>
-
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="w-full hover:bg-primary/10"
-                                        >
-                                            <Rocket className="h-4 w-4" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent side="right">
-                                        <p>Product</p>
-                                    </TooltipContent>
-                                </Tooltip>
-
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="w-full hover:bg-primary/10"
-                                        >
-                                            <Coffee className="h-4 w-4" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent side="right">
-                                        <p>Design</p>
-                                    </TooltipContent>
-                                </Tooltip>
-
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="w-full hover:bg-primary/10"
-                                        >
-                                            <Gamepad2 className="h-4 w-4" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent side="right">
-                                        <p>Gaming</p>
-                                    </TooltipContent>
-                                </Tooltip>
-
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="w-full hover:bg-primary/10"
-                                        >
-                                            <Zap className="h-4 w-4" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent side="right">
-                                        <p>Innovation</p>
-                                    </TooltipContent>
-                                </Tooltip>
+                                {workspaces.map((workspace) => (
+                                    <WorkspaceButton
+                                        key={workspace.id}
+                                        workspace={workspace}
+                                        activeWorkspace={activeWorkspace}
+                                    />
+                                ))}
                             </TooltipProvider>
                         </div>
                     </ScrollArea>
                 </div>
-                <div className="px-3 py-2">
+                <div className="px-1 py-2">
                     <div className="space-y-1">
                         <TooltipProvider>
                             <Tooltip>
@@ -134,9 +101,11 @@ export function WorkspacesList({ className }: WorkspacesListProps) {
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="w-full hover:bg-primary/10"
+                                        className={INACTIVE_WORKSPACE_BUTTON}
                                     >
-                                        <Plus className="h-4 w-4" />
+                                        <LuPlus
+                                            className={INACTIVE_WORKSPACE_ICON}
+                                        />
                                     </Button>
                                 </TooltipTrigger>
                                 <TooltipContent side="right">

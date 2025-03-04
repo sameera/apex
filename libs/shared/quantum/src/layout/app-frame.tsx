@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { ThemeProvider } from "../components/theme-provider";
 import { WorkspacesList } from "../components/workspaces-list";
 import { WorkspaceExplore } from "../components/workspace-explore";
-import { Chat } from "../components/chat";
 import { ModeToggle } from "../components/mode-toggle";
 import { Button } from "../components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import { cn } from "../utils";
 import { MobileHeader } from "../components/mobile-header";
 import { MobileSidebar } from "../components/mobile-sidebar";
@@ -13,7 +12,7 @@ import { useBreakpoint } from "../hooks/use-breakpoints";
 import { Outlet } from "react-router-dom";
 
 export const AppFrame: React.FC = () => {
-    const isMobileView = useBreakpoint() === "xs";
+    const isMobileView = useBreakpoint() === "sm";
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
@@ -21,16 +20,16 @@ export const AppFrame: React.FC = () => {
         <ThemeProvider defaultTheme="dark">
             <div className="flex h-screen w-screen">
                 {!isMobileView /* Desktop Layout */ && (
-                    <div className="hidden lg:flex h-full w-full">
+                    <div className="hidden md:flex h-full w-full">
                         {/* Workspace List */}
-                        <div className="w-[72px] border-r bg-muted/50">
+                        <div className="w-[56px] border-r bg-muted/50 shadow-lg">
                             <WorkspacesList />
                         </div>
 
                         {/* Workspace Explore (Collapsible) */}
                         <div
                             className={cn(
-                                "relative border-r transition-all duration-300",
+                                "relative bg-muted/20 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] transition-all duration-300",
                                 isCollapsed ? "w-[72px]" : "w-60"
                             )}
                         >
@@ -38,13 +37,13 @@ export const AppFrame: React.FC = () => {
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                className="absolute -right-3 top-3 z-10 h-6 w-6 rounded-full bg-background"
+                                className="absolute -right-3 top-3 z-10 h-6 w-6 rounded-full  bg-muted/20"
                                 onClick={() => setIsCollapsed(!isCollapsed)}
                             >
                                 {isCollapsed ? (
-                                    <ChevronRight className="h-4 w-4" />
+                                    <LuChevronRight className="h-4 w-4" />
                                 ) : (
-                                    <ChevronLeft className="h-4 w-4" />
+                                    <LuChevronLeft className="h-4 w-4" />
                                 )}
                             </Button>
                         </div>
@@ -65,7 +64,7 @@ export const AppFrame: React.FC = () => {
                 )}
 
                 {isMobileView && (
-                    <div className="flex flex-col h-full w-full lg:hidden">
+                    <div className="flex flex-col h-full w-full md:hidden">
                         <MobileHeader
                             onOpenSidebar={() => setIsMobileSidebarOpen(true)}
                         />

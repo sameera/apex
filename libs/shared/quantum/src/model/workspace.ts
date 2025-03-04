@@ -1,26 +1,42 @@
 import { atom } from "jotai";
 import { IconType } from "react-icons";
+import { appMeta$, DEFAULT_APP_ICON } from "./app-metadata";
+import React from "react";
 
 export interface Workspace {
     id: string;
     name: string;
     icon: IconType;
-    description?: string;
-    isSystemSpace?: boolean;
+    explorerMenu?: React.ReactNode;
 }
 
 const _workspaces$ = atom(new Map<string, Workspace>());
 const _activeWorkspace$ = atom<Workspace | null>(null);
 
+export const systemWorkspace$ = atom((get) => {
+    const appMeta = get(appMeta$);
+    return {
+        id: "<<APP_OVERVIEW_WORKSPACE>>",
+        name: appMeta.name,
+        icon: appMeta.icon,
+    };
+});
+
 export const activeWorkspace$ = atom(
     (get) => {
-        const active = get(_activeWorkspace$);
+        let active = get(_activeWorkspace$);
         if (active) return active;
 
         const wks = get(_workspaces$);
-        return wks.size > 0
-            ? wks.values().next().value
-            : { id: "<<default>>", name: "Default" };
+        if (wks.size > 0) {
+            active = wks.values().next().value || null;
+        }
+
+        if (!active) {
+            active = get(systemWorkspace$);
+        }
+
+        return active;
     },
     (get, set, workspaceId: string) => {
         const isEmptyId = !workspaceId || !workspaceId.length;
