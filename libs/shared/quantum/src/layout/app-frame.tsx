@@ -10,10 +10,12 @@ import { MobileHeader } from "../components/mobile-header";
 import { MobileSidebar } from "../components/mobile-sidebar";
 import { useBreakpoint } from "../hooks/use-breakpoints";
 import { Outlet } from "react-router-dom";
+import { isExplorerCollapsed$ } from "../components/ui-atoms";
+import { useAtom } from "jotai";
 
 export const AppFrame: React.FC = () => {
     const isMobileView = useBreakpoint() === "sm";
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useAtom(isExplorerCollapsed$);
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
     return (
@@ -33,11 +35,11 @@ export const AppFrame: React.FC = () => {
                                 isCollapsed ? "w-[72px]" : "w-60"
                             )}
                         >
-                            <WorkspaceExplore isCollapsed={isCollapsed} />
+                            <WorkspaceExplore />
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                className="absolute -right-3 top-3 z-10 h-6 w-6 rounded-full  bg-muted/20"
+                                className="absolute -right-3 top-3 z-10 h-6 w-6 rounded-full  bg-muted/20 shadow-md"
                                 onClick={() => setIsCollapsed(!isCollapsed)}
                             >
                                 {isCollapsed ? (

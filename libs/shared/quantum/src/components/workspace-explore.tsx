@@ -9,23 +9,20 @@ import {
     LuSettings,
 } from "react-icons/lu";
 import { activeWorkspace$ } from "../model";
-import { WorkspaceExplorerButton } from "./workspace-explorer-button";
+import { WorkspaceMenuItem } from "./workspace-menu-item";
+import { isExplorerCollapsed$ } from "./ui-atoms";
 
-interface WorkspaceExploreProps extends React.HTMLAttributes<HTMLDivElement> {
-    isCollapsed: boolean;
-}
+type WorkspaceExploreProps = React.HTMLAttributes<HTMLDivElement>;
 
-export function WorkspaceExplore({
-    className,
-    isCollapsed,
-}: WorkspaceExploreProps) {
+export function WorkspaceExplore({ className }: WorkspaceExploreProps) {
     const [activeWorkspace] = useAtom(activeWorkspace$);
+    const [isCollapsed, setIsCollpased] = useAtom(isExplorerCollapsed$);
 
     return (
         <div className={cn("flex flex-col h-full", className)}>
             <div className="flex-1 space-y-4 py-4 mb-8">
                 <div className="space-y-4 px-3 py-2">
-                    <div className="space-y-1 px-4 gap-2 flex items-center">
+                    <div className="space-y-1 px-4 mb-6 gap-2 flex items-center">
                         <span>
                             {activeWorkspace.icon({
                                 className: "mr-2 h-6 w-6",
@@ -40,19 +37,13 @@ export function WorkspaceExplore({
                             {activeWorkspace.name}
                         </h2>
                     </div>
-                    <div className="space-y-1 pt-3">
-                        <WorkspaceExplorerButton
-                            isCollapsed={isCollapsed}
+                    <div className="space-y-1">
+                        <WorkspaceMenuItem
                             text="Announcements"
                             icon={LuMegaphone}
                         />
-                        <WorkspaceExplorerButton
-                            isCollapsed={isCollapsed}
-                            text="general"
-                            icon={LuHash}
-                        />
-                        <WorkspaceExplorerButton
-                            isCollapsed={isCollapsed}
+                        <WorkspaceMenuItem text="general" icon={LuHash} />
+                        <WorkspaceMenuItem
                             text="chat"
                             icon={LuMessagesSquare}
                         />

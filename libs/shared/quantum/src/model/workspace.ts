@@ -68,16 +68,16 @@ export const getWorkspaceByName$ = atom((get) => {
     };
 });
 
-export const getWorkspacesByType$ = atom((get) => {
-    const workspaces = get(getWorkspaces$);
-    const [pluginSpaces, systemSpaces] = workspaces.reduce(
-        (result, w) => {
-            const [pluginSpaces, systemSpaces] = result;
-            const targetList = w.isSystemSpace ? systemSpaces : pluginSpaces;
-            targetList.push(w);
-            return result;
-        },
-        [[], []] as [Workspace[], Workspace[]]
-    );
-    return { pluginSpaces, systemSpaces };
-});
+// export const getWorkspacesByType$ = atom((get) => {
+//     const workspaces = get(getWorkspaces$);
+//     const [pluginSpaces, systemSpaces] = workspaces.reduce(
+//         (result, w) => {
+//             const [pluginSpaces, systemSpaces] = result;
+//             const targetList = w.isSystemSpace ? systemSpaces : pluginSpaces;
+//             targetList.push(w);
+//             return result;
+//         },
+//         [[], []] as [Workspace[], Workspace[]]
+//     );
+//     return { pluginSpaces, systemSpaces };
+// });

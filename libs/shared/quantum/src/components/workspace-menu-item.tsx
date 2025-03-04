@@ -2,12 +2,15 @@ import React from "react";
 import { Button } from "./ui/button";
 import { cn } from "../utils";
 import { IconType } from "react-icons";
+import { useAtom } from "jotai";
+import { isExplorerCollapsed$ } from "./ui-atoms";
 
-export const WorkspaceExplorerButton: React.FC<{
+export const WorkspaceMenuItem: React.FC<{
     icon: IconType;
     text: string;
-    isCollapsed: boolean;
-}> = ({ icon, text, isCollapsed }) => {
+}> = ({ icon, text }) => {
+    const [isCollapsed] = useAtom(isExplorerCollapsed$);
+
     return (
         <Button
             variant="ghost"
