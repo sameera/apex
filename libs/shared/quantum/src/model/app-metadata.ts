@@ -1,6 +1,6 @@
-import { atom } from "jotai";
 import { IconType } from "react-icons";
 import { LiaAtomSolid } from "react-icons/lia";
+import { atom } from "jotai";
 
 export const DEFAULT_APP_ICON = LiaAtomSolid;
 

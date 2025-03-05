@@ -1,22 +1,27 @@
 import React, { useState } from "react";
-import { ThemeProvider } from "../components/theme-provider";
-import { WorkspacesList } from "../components/workspaces-list";
-import { WorkspaceExplore } from "../components/workspace-explore";
-import { ModeToggle } from "../components/mode-toggle";
-import { Button } from "../components/ui/button";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
-import { cn } from "../utils";
-import { MobileHeader } from "../components/mobile-header";
-import { MobileSidebar } from "../components/mobile-sidebar";
-import { useBreakpoint } from "../hooks/use-breakpoints";
 import { Outlet } from "react-router-dom";
-import { isExplorerCollapsed$ } from "../components/ui-atoms";
 import { useAtom } from "jotai";
+
+import { Button } from "../components/button";
+import { useNavigateOnSwitch } from "../effects/workspace-switching";
+import { useBreakpoint } from "../hooks/use-breakpoints";
+import { cn } from "../utils";
+
+import { MobileHeader } from "./mobile-header";
+import { MobileSidebar } from "./mobile-sidebar";
+import { ModeToggle } from "./mode-toggle";
+import { ThemeProvider } from "./theme-provider";
+import { isExplorerCollapsed$ } from "./ui-state";
+import { WorkspaceExplore } from "./workspace-explore";
+import { WorkspacesList } from "./workspaces-list";
 
 export const AppFrame: React.FC = () => {
     const isMobileView = useBreakpoint() === "sm";
     const [isCollapsed, setIsCollapsed] = useAtom(isExplorerCollapsed$);
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
+    useNavigateOnSwitch();
 
     return (
         <ThemeProvider defaultTheme="dark">

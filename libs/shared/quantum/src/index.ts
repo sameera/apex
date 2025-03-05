@@ -1,4 +1,5 @@
 export * from "./model";
+export * from "./hooks";
 
-export * from "./components";
 export * from "./layout/app-frame";
+export * from "./layout/workspace-menu-item";

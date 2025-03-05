@@ -45,6 +45,7 @@
         "eslint-plugin-playwright": "^1.6.2",
         "eslint-plugin-react": "7.35.0",
         "eslint-plugin-react-hooks": "5.0.0",
+        "eslint-plugin-simple-import-sort": "^12.1.1",
         "jsdom": "~22.1.0",
         "nx": "20.4.6",
         "postcss": "8.4.38",

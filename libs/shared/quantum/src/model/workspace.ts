@@ -1,12 +1,17 @@
-import { atom } from "jotai";
+import React, { lazy } from "react";
 import { IconType } from "react-icons";
-import { appMeta$, DEFAULT_APP_ICON } from "./app-metadata";
-import React from "react";
+import { atom } from "jotai";
+
+import { appMeta$ } from "./app-metadata";
 
 export interface Workspace {
     id: string;
     name: string;
     icon: IconType;
+    router?: ReturnType<typeof lazy>;
+}
+
+export interface ActiveWorkspace extends Workspace {
     explorerMenu?: React.ReactNode;
 }
 
