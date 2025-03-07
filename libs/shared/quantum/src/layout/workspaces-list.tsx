@@ -18,8 +18,6 @@ import {
     systemWorkspace$,
 } from "../workspaces/state";
 
-type WorkspacesListProps = React.HTMLAttributes<HTMLDivElement>;
-
 const ACTIVE_WORKSPACE_BUTTON =
     "w-full bg-primary/10 hover:bg-primary/20 group";
 const INACTIVE_WORKSPACE_BUTTON = "w-full hover:bg-primary/10 group";
@@ -63,9 +61,15 @@ function WorkspaceButton({
     );
 }
 
-export function WorkspacesList({ className }: WorkspacesListProps) {
+export type WorkspacesListProps = React.HTMLAttributes<HTMLDivElement> & {
+    activeWorkspace: Workspace;
+};
+
+export function WorkspacesList({
+    className,
+    activeWorkspace,
+}: WorkspacesListProps) {
     const [workspaces] = useAtom(getWorkspaces$);
-    const [activeWorkspace] = useAtom(activeWorkspace$);
     const [appOverviewWorkspace] = useAtom(systemWorkspace$);
 
     return (

@@ -1,10 +1,4 @@
-import {
-    LuHash,
-    LuMegaphone,
-    LuMessagesSquare,
-    LuPlus,
-    LuSettings,
-} from "react-icons/lu";
+import { LuPlus, LuSettings } from "react-icons/lu";
 import { useAtom } from "jotai";
 
 import { Button } from "../components/button";
@@ -12,11 +6,13 @@ import { cn } from "../components/utils";
 import { activeWorkspace$ } from "../workspaces/state";
 
 import { isExplorerCollapsed$ } from "./state";
-import { WorkspaceMenuItem } from "./workspace-menu-item";
 
 type WorkspaceExploreProps = React.HTMLAttributes<HTMLDivElement>;
 
-export function WorkspaceExplore({ className }: WorkspaceExploreProps) {
+export function WorkspaceExplore({
+    className,
+    children,
+}: WorkspaceExploreProps) {
     const [activeWorkspace] = useAtom(activeWorkspace$);
     const [isCollapsed] = useAtom(isExplorerCollapsed$);
 
@@ -39,17 +35,7 @@ export function WorkspaceExplore({ className }: WorkspaceExploreProps) {
                             {activeWorkspace.name}
                         </h2>
                     </div>
-                    <div className="space-y-1">
-                        <WorkspaceMenuItem
-                            text="Announcements"
-                            icon={LuMegaphone}
-                        />
-                        <WorkspaceMenuItem text="general" icon={LuHash} />
-                        <WorkspaceMenuItem
-                            text="chat"
-                            icon={LuMessagesSquare}
-                        />
-                    </div>
+                    {children}
                 </div>
                 <div className="px-3 py-2">
                     <div className="space-y-1">
