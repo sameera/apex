@@ -12,9 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
     <StrictMode>
         <WorkspaceProvider workspaces={workspaces}>
-            <WorkspaceRouterProvider>
-                <App />
-            </WorkspaceRouterProvider>
+            <App />
         </WorkspaceProvider>
     </StrictMode>
 );

@@ -3,8 +3,6 @@ import { AppFrame } from "@sameera/quantum";
 
 import "@sameera/quantum/themes";
 
-import { useWorkspacesInitializer } from "./workspaces";
-
 export function App() {
     return <AppFrame></AppFrame>;
 }

@@ -1,18 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { lazy, ReactNode } from "react";
+import { lazy } from "react";
 import { BsCodeSlash } from "react-icons/bs";
-import { GiRubberBoot, GiSummits } from "react-icons/gi";
+import { GiSummits } from "react-icons/gi";
 import { MdOutlineTaskAlt } from "react-icons/md";
 import { SiGoogletasks } from "react-icons/si";
-import {
-    addWorkspaces$,
-    createWorkspaceRouter,
-    RoutableWorkpace,
-    Workspace,
-} from "@sameera/quantum";
-import { useSetAtom } from "jotai";
+import { RoutableWorkspace } from "@sameera/quantum";
 
-export const workspaces: RoutableWorkpace[] = [
+export const workspaces: RoutableWorkspace[] = [
     // Tasks
     {
         id: "tasks",
