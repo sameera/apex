@@ -3,7 +3,7 @@ import { IconType } from "react-icons";
 import { useAtom } from "jotai";
 
 import { Button } from "../components/button";
-import { cn } from "../utils";
+import { cn } from "../components/utils";
 
 import { isExplorerCollapsed$ } from "./ui-state";
 

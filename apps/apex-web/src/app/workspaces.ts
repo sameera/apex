@@ -1,12 +1,18 @@
-import { addWorkspaces$, Workspace } from "@sameera/quantum";
-import { useSetAtom } from "jotai";
-import { lazy } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { lazy, ReactNode } from "react";
 import { BsCodeSlash } from "react-icons/bs";
-import { GiSummits } from "react-icons/gi";
+import { GiRubberBoot, GiSummits } from "react-icons/gi";
 import { MdOutlineTaskAlt } from "react-icons/md";
 import { SiGoogletasks } from "react-icons/si";
+import {
+    addWorkspaces$,
+    createWorkspaceRouter,
+    RoutableWorkpace,
+    Workspace,
+} from "@sameera/quantum";
+import { useSetAtom } from "jotai";
 
-export const workspaces: Workspace[] = [
+export const workspaces: RoutableWorkpace[] = [
     // Tasks
     {
         id: "tasks",
@@ -31,9 +37,3 @@ export const workspaces: Workspace[] = [
         icon: SiGoogletasks,
     },
 ];
-
-export function useAppWorkspaces() {
-    const addWorkspaces = useSetAtom(addWorkspaces$);
-    addWorkspaces(workspaces);
-    return workspaces;
-}

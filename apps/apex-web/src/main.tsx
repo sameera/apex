@@ -1,8 +1,9 @@
 import { StrictMode } from "react";
 import * as ReactDOM from "react-dom/client";
+import { WorkspaceProvider, WorkspaceRouterProvider } from "@sameera/quantum";
 
-import { RouterProvider } from "react-router-dom";
-import { router } from "./app/routes";
+import App from "./app/app";
+import { workspaces } from "./app/workspaces";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -10,6 +11,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <StrictMode>
-        <RouterProvider router={router} />
+        <WorkspaceProvider workspaces={workspaces}>
+            <WorkspaceRouterProvider>
+                <App />
+            </WorkspaceRouterProvider>
+        </WorkspaceProvider>
     </StrictMode>
 );

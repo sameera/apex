@@ -10,13 +10,13 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "../components/tooltip";
+import { cn } from "../components/utils";
+import { Workspace } from "../workspaces";
 import {
     activeWorkspace$,
     getWorkspaces$,
     systemWorkspace$,
-    Workspace,
-} from "../model";
-import { cn } from "../utils";
+} from "../workspaces/state";
 
 type WorkspacesListProps = React.HTMLAttributes<HTMLDivElement>;
 

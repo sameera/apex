@@ -4,9 +4,9 @@ import { Outlet } from "react-router-dom";
 import { useAtom } from "jotai";
 
 import { Button } from "../components/button";
-import { useNavigateOnSwitch } from "../effects/workspace-switching";
+import { cn } from "../components/utils";
 import { useBreakpoint } from "../hooks/use-breakpoints";
-import { cn } from "../utils";
+import { useNavigateOnSwitch } from "../workspaces/hooks";
 
 import { MobileHeader } from "./mobile-header";
 import { MobileSidebar } from "./mobile-sidebar";

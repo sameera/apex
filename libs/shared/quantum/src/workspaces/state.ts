@@ -1,22 +1,11 @@
-import React, { lazy } from "react";
-import { IconType } from "react-icons";
 import { atom } from "jotai";
 
-import { appMeta$ } from "./app-metadata";
+import { appMeta$ } from "../model/app-metadata";
 
-export interface Workspace {
-    id: string;
-    name: string;
-    icon: IconType;
-    router?: ReturnType<typeof lazy>;
-}
+import { RuntimeWorkspace, Workspace } from "./model";
 
-export interface ActiveWorkspace extends Workspace {
-    explorerMenu?: React.ReactNode;
-}
-
-const _workspaces$ = atom(new Map<string, Workspace>());
-const _activeWorkspace$ = atom<Workspace | null>(null);
+const _workspaces$ = atom(new Map<string, RuntimeWorkspace>());
+const _activeWorkspace$ = atom<RuntimeWorkspace | null>(null);
 
 export const systemWorkspace$ = atom((get) => {
     const appMeta = get(appMeta$);
@@ -66,7 +55,7 @@ export const getWorkspaces$ = atom((get) =>
     Array.from(get(_workspaces$).values())
 );
 
-export const getWorkspaceByName$ = atom((get) => {
+export const getWorkspaceById$ = atom((get) => {
     return (name: string) => {
         const workspaces = get(_workspaces$);
         return workspaces.get(name);

@@ -20,7 +20,7 @@ export function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
                 <SheetDescription className="sr-only">
                     Navigate through your workspace items and folders
                 </SheetDescription>
-                <WorkspaceExplore className="h-full" isCollapsed={false} />
+                <WorkspaceExplore className="h-full" />
             </SheetContent>
         </Sheet>
     );

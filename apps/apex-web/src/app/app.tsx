@@ -1,12 +1,11 @@
-import { Route, Routes, Link } from "react-router-dom";
-
+import { useEffect } from "react";
 import { AppFrame } from "@sameera/quantum";
+
 import "@sameera/quantum/themes";
-import { useAppWorkspaces } from "./workspaces";
+
+import { useWorkspacesInitializer } from "./workspaces";
 
 export function App() {
-    useAppWorkspaces();
-
     return <AppFrame></AppFrame>;
 }
 

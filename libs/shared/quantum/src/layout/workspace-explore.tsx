@@ -8,8 +8,8 @@ import {
 import { useAtom } from "jotai";
 
 import { Button } from "../components/button";
-import { activeWorkspace$ } from "../model";
-import { cn } from "../utils";
+import { cn } from "../components/utils";
+import { activeWorkspace$ } from "../workspaces/state";
 
 import { isExplorerCollapsed$ } from "./ui-state";
 import { WorkspaceMenuItem } from "./workspace-menu-item";
