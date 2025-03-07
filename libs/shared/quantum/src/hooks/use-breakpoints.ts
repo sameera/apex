@@ -3,21 +3,21 @@ import { useEffect, useState } from "react";
 type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl";
 
 const breakpoints = {
-    xs: "(max-width: 639px)",
-    sm: "(min-width: 640px) and (max-width: 767px)",
-    md: "(min-width: 768px) and (max-width: 1023px)",
-    lg: "(min-width: 1024px) and (max-width: 1279px)",
-    xl: "(min-width: 1280px)",
+    xs: { query: "(max-width: 639px)", rank: 0 },
+    sm: { query: "(min-width: 640px) and (max-width: 767px)", rank: 1 },
+    md: { query: "(min-width: 768px) and (max-width: 1023px)", rank: 2 },
+    lg: { query: "(min-width: 1024px) and (max-width: 1279px)", rank: 3 },
+    xl: { query: "(min-width: 1280px)", rank: 4 },
 };
 
-export const useBreakpoint = (): Breakpoint => {
+export const useBreakpoint = () => {
     const [currentBreakpoint, setCurrentBreakpoint] =
         useState<Breakpoint>("xs");
 
     useEffect(() => {
         // Create matchMedia listeners for each breakpoint
         const mediaQueryLists = Object.entries(breakpoints).map(
-            ([key, query]) => ({
+            ([key, { query }]) => ({
                 key: key as Breakpoint,
                 mediaQueryList: window.matchMedia(query),
             })
@@ -48,5 +48,9 @@ export const useBreakpoint = (): Breakpoint => {
         };
     }, []);
 
-    return currentBreakpoint;
+    return {
+        breakpoint: currentBreakpoint,
+        isLargerThan: (check: Breakpoint) =>
+            breakpoints[currentBreakpoint].rank > breakpoints[check].rank,
+    };
 };

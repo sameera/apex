@@ -11,7 +11,7 @@ import { Button } from "../components/button";
 import { cn } from "../components/utils";
 import { activeWorkspace$ } from "../workspaces/state";
 
-import { isExplorerCollapsed$ } from "./ui-state";
+import { isExplorerCollapsed$ } from "./state";
 import { WorkspaceMenuItem } from "./workspace-menu-item";
 
 type WorkspaceExploreProps = React.HTMLAttributes<HTMLDivElement>;

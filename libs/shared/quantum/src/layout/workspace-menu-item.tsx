@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { Button } from "../components/button";
 import { cn } from "../components/utils";
 
-import { isExplorerCollapsed$ } from "./ui-state";
+import { isExplorerCollapsed$ } from "./state";
 
 export const WorkspaceMenuItem: React.FC<{
     icon: IconType;

@@ -11,17 +11,19 @@ import { useNavigateOnSwitch } from "../workspaces/hooks";
 import { MobileHeader } from "./mobile-header";
 import { MobileSidebar } from "./mobile-sidebar";
 import { ModeToggle } from "./mode-toggle";
+import { isExplorerCollapsed$ } from "./state";
 import { ThemeProvider } from "./theme-provider";
-import { isExplorerCollapsed$ } from "./ui-state";
 import { WorkspaceExplore } from "./workspace-explore";
 import { WorkspacesList } from "./workspaces-list";
 
 export const AppFrame: React.FC = () => {
-    const isMobileView = useBreakpoint() === "sm";
+    const { isLargerThan } = useBreakpoint();
     const [isCollapsed, setIsCollapsed] = useAtom(isExplorerCollapsed$);
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
     useNavigateOnSwitch();
+
+    const isMobileView = !isLargerThan("sm");
 
     return (
         <ThemeProvider defaultTheme="dark">
