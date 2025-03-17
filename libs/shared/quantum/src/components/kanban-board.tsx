@@ -1,12 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import React from "react";
 import {
-    LuCircleAlert,
-    LuCircleCheck,
-    LuClock,
-    LuGripVertical,
-} from "react-icons/lu";
-import {
     closestCenter,
     DndContext,
     type DragEndEvent,
@@ -26,9 +20,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
-import { Badge } from "./badge";
-import { Card, CardContent } from "./card";
+import { Card } from "./card";
 import {
     Table,
     TableBody,
@@ -39,157 +31,39 @@ import {
 } from "./table";
 
 // Define the type for a card item
-interface CardItem {
+export interface CardItem {
     id: string;
     name: string;
-    type?: "task" | "bug" | "story" | "epic";
-    priority?: "highest" | "high" | "medium" | "low" | "lowest";
-    status?: "todo" | "in-progress" | "done";
-    assignee?: {
-        name: string;
-        avatar?: string;
-        initials: string;
-    };
     [key: string]: unknown;
 }
+
+// Props for the KanbanCard component
+interface KanbanCardProps<T extends CardItem = CardItem> {
+    card: T;
+    isDragOverlay?: boolean;
+}
+
+export type CardTemplate<T extends CardItem = CardItem> = React.FC<
+    KanbanCardProps<T>
+>;
 
 // Props for the KanbanBoard component
 interface KanbanBoardProps {
     data: CardItem[][][];
     columnHeaders?: string[];
     rowHeaders?: string[];
-    cardTemplate?: React.FC<{ card: CardItem }>;
+    cardTemplate?: CardTemplate;
 }
-
-// Props for the KanbanCard component
-interface KanbanCardProps {
-    card: CardItem;
-    isDragOverlay?: boolean;
-}
-
-// Get priority color
-const getPriorityColor = (priority?: string) => {
-    switch (priority) {
-        case "highest":
-            return "bg-red-500 dark:bg-red-600";
-        case "high":
-            return "bg-orange-500 dark:bg-orange-600";
-        case "medium":
-            return "bg-yellow-500 dark:bg-yellow-600";
-        case "low":
-            return "bg-blue-500 dark:bg-blue-600";
-        case "lowest":
-            return "bg-green-500 dark:bg-green-600";
-        default:
-            return "bg-gray-500 dark:bg-gray-600";
-    }
-};
-
-// Get type badge
-const getTypeBadge = (type?: string) => {
-    switch (type) {
-        case "bug":
-            return (
-                <Badge variant="destructive" className="text-xs">
-                    Bug
-                </Badge>
-            );
-        case "story":
-            return (
-                <Badge variant="secondary" className="text-xs">
-                    Story
-                </Badge>
-            );
-        case "epic":
-            return (
-                <Badge
-                    variant="outline"
-                    className="text-xs border-purple-500 text-purple-500 dark:text-purple-400"
-                >
-                    Epic
-                </Badge>
-            );
-        case "task":
-        default:
-            return (
-                <Badge variant="default" className="text-xs">
-                    Task
-                </Badge>
-            );
-    }
-};
-
-// Get status icon
-const getStatusIcon = (status?: string) => {
-    switch (status) {
-        case "done":
-            return (
-                <LuCircleCheck className="h-4 w-4 text-green-500 dark:text-green-400" />
-            );
-        case "in-progress":
-            return (
-                <LuClock className="h-4 w-4 text-blue-500 dark:text-blue-400" />
-            );
-        case "todo":
-        default:
-            return (
-                <LuCircleAlert className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-            );
-    }
-};
 
 // Card content component (shared between draggable card and overlay)
 const CardDisplay: React.FC<KanbanCardProps> = ({ card, isDragOverlay }) => {
-    const priorityColor = getPriorityColor(card.priority);
-
-    return (
-        <>
-            <div className={`h-1 w-full ${priorityColor}`}></div>
-            <CardContent className="p-3">
-                <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-mono text-muted-foreground">
-                            {card.id}
-                        </span>
-                        {getTypeBadge(card.type)}
-                    </div>
-                    {!isDragOverlay && (
-                        <div className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">
-                            <LuGripVertical size={16} />
-                        </div>
-                    )}
-                </div>
-
-                <div className="font-medium mb-2 text-sm">{card.name}</div>
-
-                <div className="flex items-center justify-between mt-2">
-                    <div className="flex items-center gap-1">
-                        {getStatusIcon(card.status)}
-                    </div>
-
-                    {card.assignee && (
-                        <Avatar className="h-6 w-6">
-                            {card.assignee.avatar ? (
-                                <AvatarImage
-                                    src={card.assignee.avatar}
-                                    alt={card.assignee.name}
-                                />
-                            ) : null}
-                            <AvatarFallback className="text-xs bg-primary/10 text-primary">
-                                {card.assignee.initials}
-                            </AvatarFallback>
-                        </Avatar>
-                    )}
-                </div>
-            </CardContent>
-        </>
-    );
+    return <div className="font-medium mb-2 text-sm">{card.name}</div>;
 };
 
 // The draggable card component
-export const KanbanCard: React.FC<
-    KanbanCardProps & { id: string; renderer: React.FC<{ card: CardItem }> }
-> = ({ card, id, renderer }) => {
+const KanbanCard: React.FC<
+    KanbanCardProps & { id: string; cardTemplate: React.FC<{ card: CardItem }> }
+> = ({ card, id, cardTemplate }) => {
     const cardRef = useRef<HTMLDivElement | null>(null);
 
     const {
@@ -227,7 +101,7 @@ export const KanbanCard: React.FC<
             data-card-width={cardRef.current?.offsetWidth}
         >
             <div {...attributes} {...listeners} className="w-full h-full">
-                {renderer({ card })}
+                {cardTemplate({ card })}
             </div>
         </Card>
     );
@@ -578,7 +452,7 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
                                                                         card={
                                                                             card
                                                                         }
-                                                                        renderer={
+                                                                        cardTemplate={
                                                                             cardTemplate
                                                                         }
                                                                     />

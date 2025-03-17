@@ -1,8 +1,6 @@
-import {
-    CardItem,
-    JiraCardDisplay,
-    KanbanBoard,
-} from "@sameera/quantum/ui/kanban-board";
+import { CardItem, KanbanBoard } from "@sameera/quantum/ui/kanban-board";
+
+import { JiraStyleCardTemplate } from "../components/jira-style-card";
 
 const ActionCenter: React.FC = () => {
     const exampleData: CardItem[][][] = [
@@ -161,6 +159,7 @@ const ActionCenter: React.FC = () => {
                 data={exampleData}
                 columnHeaders={columnHeaders}
                 rowHeaders={rowHeaders}
+                cardTemplate={JiraStyleCardTemplate}
             />
         </div>
     );
