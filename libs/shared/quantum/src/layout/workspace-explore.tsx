@@ -1,6 +1,8 @@
+import React, { ReactNode } from "react";
 import { LuPlus, LuSettings } from "react-icons/lu";
 import { useAtom } from "jotai";
 
+import { ComponentWithChildren } from "../component-with-children";
 import { Button } from "../components/button";
 import { cn } from "../components/utils";
 import { activeWorkspace$ } from "../workspaces/state";
@@ -9,12 +11,26 @@ import { isExplorerCollapsed$ } from "./state";
 
 type WorkspaceExploreProps = React.HTMLAttributes<HTMLDivElement>;
 
-export function WorkspaceExplore({
-    className,
-    children,
-}: WorkspaceExploreProps) {
+export const Settings: ComponentWithChildren = () => {
+    return null;
+};
+
+export const WorkspaceExplore: React.FC<WorkspaceExploreProps> & {
+    Settings?: ComponentWithChildren;
+} = ({ className, children }) => {
     const [activeWorkspace] = useAtom(activeWorkspace$);
     const [isCollapsed] = useAtom(isExplorerCollapsed$);
+
+    let content: ReactNode | null = null;
+    let settings: ReactNode | null = null;
+
+    React.Children.forEach(children, (child) => {
+        if (React.isValidElement(child) && child.type === Settings) {
+            settings = child;
+        } else {
+            content = child;
+        }
+    });
 
     return (
         <div className={cn("flex flex-col h-full", className)}>
@@ -35,7 +51,7 @@ export function WorkspaceExplore({
                             {activeWorkspace.name}
                         </h2>
                     </div>
-                    {children}
+                    {content}
                 </div>
                 <div className="px-3 py-2">
                     <div className="space-y-1">
@@ -65,29 +81,34 @@ export function WorkspaceExplore({
                 </div>
             </div>
             <div className="px-3 py-4 border-t">
-                <Button
-                    variant="ghost"
-                    className={cn(
-                        "w-full justify-start",
-                        isCollapsed && "px-2"
-                    )}
-                >
-                    <LuSettings
+                {!settings && (
+                    <Button
+                        variant="ghost"
                         className={cn(
-                            "mr-2 h-4 w-4",
-                            isCollapsed && "mr-0 h-5 w-5"
-                        )}
-                    />
-                    <span
-                        className={cn(
-                            "transition-all",
-                            isCollapsed && "hidden"
+                            "w-full justify-start",
+                            isCollapsed && "px-2"
                         )}
                     >
-                        Settings
-                    </span>
-                </Button>
+                        <LuSettings
+                            className={cn(
+                                "mr-2 h-4 w-4",
+                                isCollapsed && "mr-0 h-5 w-5"
+                            )}
+                        />
+                        <span
+                            className={cn(
+                                "transition-all",
+                                isCollapsed && "hidden"
+                            )}
+                        >
+                            Settings
+                        </span>
+                    </Button>
+                )}
+                {settings}
             </div>
         </div>
     );
-}
+};
+
+WorkspaceExplore.Settings = Settings;

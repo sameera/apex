@@ -1,10 +1,10 @@
-/// <reference types='vitest' />
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import dts from "vite-plugin-dts";
-import * as path from "path";
-import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
+/// <reference types="vitest" />
 import { nxCopyAssetsPlugin } from "@nx/vite/plugins/nx-copy-assets.plugin";
+import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
+import react from "@vitejs/plugin-react-swc";
+import * as path from "path";
+import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
     root: __dirname,
@@ -20,7 +20,7 @@ export default defineConfig({
     ],
     // Uncomment this if you are using workers.
     // worker: {
-    //  plugins: [ nxViteTsPaths() ],
+    //  plugins: [ nxViteTsPaths() ],`
     // },
     // Configuration for building your library.
     // See: https://vitejs.dev/guide/build.html#library-mode
@@ -37,7 +37,7 @@ export default defineConfig({
             name: "tasks",
             fileName: "index",
             // Change this to the formats you want to support.
-            // Don't forget to update your package.json as well.
+            // Don"t forget to update your package.json as well.
             formats: ["es"],
         },
         rollupOptions: {

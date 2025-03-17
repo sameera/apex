@@ -75,7 +75,7 @@ export function WorkspacesList({
     return (
         <div className={cn("pb-12", className)}>
             <div className="space-y-1 py-4">
-                {/* App Overview Button */}
+                {/* App Settings Button */}
                 <div className="px-1 py-2">
                     <div className="space-y-1">
                         <TooltipProvider>

@@ -1,8 +1,9 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import { Outlet } from "react-router-dom";
 import { useAtom } from "jotai";
 
+import { ComponentWithChildren } from "../component-with-children";
 import { Button } from "../components/button";
 import { cn } from "../components/utils";
 import { useBreakpoint } from "../hooks/use-breakpoints";
@@ -13,14 +14,14 @@ import { isExplorerCollapsed$, isMobileSidebarOpen$ } from "./state";
 import { WorkspaceExplore } from "./workspace-explore";
 
 // Explorer component that will be used as WorkspaceFrame.Explorer
-const Explorer: React.FC<{ children: ReactNode }> = ({ children }) => {
+const Explorer: ComponentWithChildren = ({ children }) => {
     // This component doesn't render anything directly
     // It just passes its children to be rendered by the parent
     return null;
 };
 
-export const WorkspaceFrame: React.FC<{ children: ReactNode }> & {
-    Explorer: React.FC<{ children: ReactNode }>;
+export const WorkspaceFrame: ComponentWithChildren & {
+    Explorer: ComponentWithChildren;
 } = ({ children }) => {
     const { isLargerThan } = useBreakpoint();
 
@@ -32,7 +33,6 @@ export const WorkspaceFrame: React.FC<{ children: ReactNode }> & {
 
     let explorerContent: ReactNode | null = null;
 
-    // Process children to extract the Explorer component's children
     React.Children.forEach(children, (child) => {
         if (React.isValidElement(child) && child.type === Explorer) {
             explorerContent = child.props.children;

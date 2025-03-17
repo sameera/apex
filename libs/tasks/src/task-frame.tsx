@@ -1,5 +1,5 @@
 import React from "react";
-import { LuHash, LuMegaphone, LuMessagesSquare } from "react-icons/lu";
+import { LuClapperboard, LuGoal, LuShoppingBag } from "react-icons/lu";
 import { WorkspaceFrame, WorkspaceMenuItem } from "@sameera/quantum";
 
 const TaskFrame: React.FC = () => {
@@ -8,11 +8,16 @@ const TaskFrame: React.FC = () => {
             <WorkspaceFrame.Explorer>
                 <div className="space-y-1">
                     <WorkspaceMenuItem
-                        text="Announcements"
-                        icon={LuMegaphone}
+                        text="Action Center"
+                        icon={LuClapperboard}
+                        to="/tasks"
                     />
-                    <WorkspaceMenuItem text="general" icon={LuHash} />
-                    <WorkspaceMenuItem text="chat" icon={LuMessagesSquare} />
+                    <WorkspaceMenuItem
+                        text="Buckets"
+                        icon={LuShoppingBag}
+                        to="buckets"
+                    />
+                    <WorkspaceMenuItem text="Goals" icon={LuGoal} to="goals" />
                 </div>
             </WorkspaceFrame.Explorer>
         </WorkspaceFrame>

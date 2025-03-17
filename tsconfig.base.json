@@ -18,7 +18,8 @@
             "@sameera/apex/tasks": ["libs/tasks/src/index.ts"],
             "@sameera/apex/tasks/routes": ["libs/tasks/src/routes.tsx"],
             "@sameera/quantum": ["libs/shared/quantum/src/index.ts"],
-            "@sameera/quantum/themes": ["dist/libs/shared/quantum/style.css"]
+            "@sameera/quantum/themes": ["dist/libs/shared/quantum/style.css"],
+            "@sameera/quantum/ui/*": ["libs/shared/quantum/src/components/*"]
         }
     },
     "exclude": ["node_modules", "tmp"]
