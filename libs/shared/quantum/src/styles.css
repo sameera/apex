@@ -8,6 +8,13 @@
     text-align: center;
 }
 
+.no-highlight:hover,
+.no-highlight:active,
+.no-highlight:focus {
+    background-color: inherit !important;
+    outline: none !important;
+}
+
 @layer base {
     :root {
         --background: 240 10% 3.9%;

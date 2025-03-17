@@ -161,7 +161,6 @@ const ActionCenter: React.FC = () => {
                 data={exampleData}
                 columnHeaders={columnHeaders}
                 rowHeaders={rowHeaders}
-                cardTemplate={JiraCardDisplay}
             />
         </div>
     );
