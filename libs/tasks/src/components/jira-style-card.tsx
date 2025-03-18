@@ -101,9 +101,10 @@ export const JiraStyleCardTemplate: CardTemplate<JiraCardItem> = ({
     const priorityColor = getPriorityColor(card.priority);
 
     return (
-        <>
-            <div className={`h-1 w-full ${priorityColor}`}></div>
-            <CardContent className="p-3">
+        <div className="flex h-full">
+            {/* Change from top border to left border */}
+            <div className={`w-1 ${priorityColor}`}></div>
+            <CardContent className="p-3 flex-1">
                 <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-1.5">
                         <span className="text-xs font-mono text-muted-foreground">
@@ -140,6 +141,6 @@ export const JiraStyleCardTemplate: CardTemplate<JiraCardItem> = ({
                     )}
                 </div>
             </CardContent>
-        </>
+        </div>
     );
 };

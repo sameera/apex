@@ -10,6 +10,6 @@ export interface AppMetadata {
 }
 
 export const appMeta$ = atom<AppMetadata>({
-    name: "Aetherium App",
+    name: "Quantum App",
     icon: DEFAULT_APP_ICON,
 });

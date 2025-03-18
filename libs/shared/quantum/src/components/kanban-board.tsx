@@ -34,7 +34,7 @@ import {
 export interface CardItem {
     id: string;
     name: string;
-    [key: string]: unknown;
+    [key: string]: string | number | Date;
 }
 
 // Props for the KanbanCard component
